@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0-rc.5/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Test</h1>
+        <div class="form-container">
+            <label for="input1">Input 1:</label>
+            <input type="text" id="input1" name="input1">
+            <label for="input2">Input 2:</label>
+            <input type="text" id="input2" name="input2">
+            <label for="input3">Input 3:</label>
+            <input type="text" id="input3" name="input3">
+            <button onclick="generatePDF()">Generate PDF</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

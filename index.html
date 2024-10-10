@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0-rc.5/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Personal Finance Manager</h1>
+        <div class="split-container">
+            <div class="section income-section">
+                <h2>Income</h2>
+                <div class="form-container">
+                    <form id="income-form">
+                        <label for="income-amount">Amount:</label>
+                        <input type="number" step="0.01" id="income-amount" name="amount" required>
+                        <label for="income-category">Category:</label>
+                        <input type="text" id="income-category" name="category" required>
+                        <label for="income-date">Date:</label>
+                        <input type="date" id="income-date" name="date" required>
+                        <button type="submit">Add Income</button>
+                    </form>
+                </div>
+                <div class="transactions-container">
+                    <table id="income-table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="income-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="section expense-section">
+                <h2>Expenses</h2>
+                <div class="form-container">
+                    <form id="expense-form">
+                        <label for="expense-amount">Amount:</label>
+                        <input type="number" step="0.01" id="expense-amount" name="amount" required>
+                        <label for="expense-category">Category:</label>
+                        <input type="text" id="expense-category" name="category" required>
+                        <label for="expense-date">Date:</label>
+                        <input type="date" id="expense-date" name="date" required>
+                        <button type="submit">Add Expense</button>
+                    </form>
+                </div>
+                <div class="transactions-container">
+                    <table id="expense-table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="balance-container">
+            <h2>Current Balance: <span id="balance">0</span></h2>
+        </div>
+        <div class="summary-container">
+            <h2>Summary</h2>
+            <label for="summary-period">Period:</label>
+            <select id="summary-period">
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+            <button onclick="generateSummary()">Generate Summary</button>
+            <div id="summary-result"></div>
+        </div>
+        <div class="search-container">
+            <h2>Search Transactions</h2>
+            <label for="search-query">Search:</label>
+            <input type="text" id="search-query" oninput="filterTransactions()">
+        </div>
+        <div class="pdf-container">
+            <button onclick="genPDF()">Download Transactions as PDF</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
