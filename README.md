@@ -1,4 +1,4 @@
-#### Presentation should cover the following aspects of the program:
+### Presentation should cover the following aspects of the program:
 
 • The development, usability and functionality of the program must be
 demonstrated and explained to the judges.
@@ -17,7 +17,6 @@ following:
 • Code Quality: What are the specifics of and the big picture of
 the code?
 
-#### User Experience: What focus is on the ease-of-use and
-accessibility of the interface?
+### User Experience: What focus is on the ease-of-use and accessibility of the interface?
 
 • Functionality: Speak to all aspects of the topic
