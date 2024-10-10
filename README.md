@@ -7,9 +7,7 @@ demonstrated and explained to the judges.
 
 • Data must be free of viruses/malware.
 
-• Competitors must provide comprehensive documentation including a 
-  readme file, source code, templates/libraries used, and documentation
-  of any copyrighted or open-source material used.
+• Competitors must provide comprehensive documentation including a readme file, source code, templates/libraries used, and documentation of any copyrighted or open-source material used.
   
 • The presentation should follow the rating sheet and include the
 following:
