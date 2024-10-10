@@ -12,8 +12,7 @@ demonstrated and explained to the judges.
 • The presentation should follow the rating sheet and include the
 following:
 
-• Code Quality: What are the specifics of and the big picture of
-the code?
+  o Code Quality: What are the specifics of and the big picture of the code?
 
 ### User Experience: What focus is on the ease-of-use and accessibility of the interface?
 
