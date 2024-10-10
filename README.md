@@ -18,4 +18,5 @@ the code?
 
 User Experience: What focus is on the ease-of-use and
 accessibility of the interface?
+
 • Functionality: Speak to all aspects of the topic
