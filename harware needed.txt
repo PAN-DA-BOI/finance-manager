@@ -1,0 +1,4 @@
+rpi - sql server
+laptop
+cordage
+router?
