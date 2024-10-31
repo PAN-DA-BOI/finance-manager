@@ -9,4 +9,3 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 
 INSERT INTO `user_details` (`user_id`, `username`, `first_name`, `last_name`, `password`) VALUES
 (1, 'admin', 'tester', 'mctestson', 'password')
-SELECT * FROM user_id
