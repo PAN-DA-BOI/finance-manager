@@ -149,65 +149,51 @@ document.addEventListener('DOMContentLoaded', () => {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        // Create a new table for income and expense transactions
-        const table = document.createElement('table');
-        table.style.width = '100%';
-        table.style.borderCollapse = 'collapse';
+        // Set the title
+        doc.setFontSize(24);
+        doc.text("Exported Finances", 105, 20, { align: 'center' });
 
-        const headerRow = document.createElement('tr');
-        const headers = ['Type', 'Amount', 'Category', 'Date'];
-        headers.forEach(headerText => {
-            const th = document.createElement('th');
-            th.style.padding = '10px';
-            th.style.textAlign = 'left';
-            th.style.borderBottom = '1px solid #ddd';
-            th.style.backgroundColor = '#f2f2f2';
-            th.textContent = headerText;
-            headerRow.appendChild(th);
-        });
-        table.appendChild(headerRow);
+        // Set the header background color
+        doc.setFillColor(144, 238, 144); // Light green color
+        doc.rect(0, 25, 210, 10, 'F');
 
+        // Set the table header
+        doc.setFontSize(12);
+        doc.text("Type", 10, 35);
+        doc.text("Amount", 60, 35);
+        doc.text("Category", 110, 35);
+        doc.text("Date", 160, 35);
+
+        let yPosition = 40;
+
+        // Add transactions to the PDF
         transactions.forEach(transaction => {
-            const row = document.createElement('tr');
-            const cells = [transaction.type, transaction.amount.toFixed(2), transaction.category, transaction.date];
-            cells.forEach(cellText => {
-                const td = document.createElement('td');
-                td.style.padding = '10px';
-                td.style.textAlign = 'left';
-                td.style.borderBottom = '1px solid #ddd';
-                td.textContent = cellText;
-                row.appendChild(td);
-            });
-            table.appendChild(row);
-        });
+            const type = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
+            doc.text(type, 10, yPosition);
+            doc.text(`$${transaction.amount.toFixed(2)}`, 60, yPosition);
+            doc.text(transaction.category, 110, yPosition);
+            doc.text(transaction.date, 160, yPosition);
+            yPosition += 10;
 
-        // Convert the table to an image and add it to the PDF
-        html2canvas(table).then(canvas => {
-            console.log('Table converted to canvas');
-            const imgData = canvas.toDataURL('image/png');
-            const imgWidth = 210; // A4 size width in mm
-            const pageHeight = 295; // A4 size height in mm
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-
-            doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            console.log('Image added to PDF');
-            let position = 0;
-
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
+            // Check if we need to add a new page
+            if (yPosition > 280) {
                 doc.addPage();
-                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
+                yPosition = 20;
 
-            console.log('PDF generated');
-            doc.save('transactions.pdf');
-            console.log('PDF saved');
-        }).catch(error => {
-            console.error('Error generating PDF:', error);
+                // Re-add the header on the new page
+                doc.setFontSize(24);
+                doc.text("Exported Finances", 105, 20, { align: 'center' });
+                doc.setFillColor(144, 238, 144);
+                doc.rect(0, 25, 210, 10, 'F');
+                doc.setFontSize(12);
+                doc.text("Type", 10, 35);
+                doc.text("Amount", 60, 35);
+                doc.text("Category", 110, 35);
+                doc.text("Date", 160, 35);
+                yPosition = 40;
+            }
         });
+
+        doc.save('transactions.pdf');
     }
 });
