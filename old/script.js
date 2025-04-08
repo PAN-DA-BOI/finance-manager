@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => { //var declaration
     const incomeForm = document.getElementById('income-form');
     const expenseForm = document.getElementById('expense-form');
     const incomeBody = document.getElementById('income-body');
@@ -11,18 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let transactions = [];
     let balance = 0;
 
-    function updateBalance() {
+    function updateBalance() { //add income and subtract expenses
         balance = transactions.reduce((total, transaction) => {
             return total + (transaction.type === 'income' ? transaction.amount : -transaction.amount);
         }, 0);
         balanceDisplay.textContent = balance.toFixed(2);
     }
 
-    function renderTransactions() {
+    function renderTransactions() {//render to the webpage
         incomeBody.innerHTML = '';
         expenseBody.innerHTML = '';
 
-        transactions.forEach((transaction, index) => {
+        transactions.forEach((transaction, index) => {//add new income/expense box to webpage
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${transaction.amount.toFixed(2)}</td>
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    incomeForm.addEventListener('submit', (event) => {
+    incomeForm.addEventListener('submit', (event) => {//button press triggers change on page (income)
         event.preventDefault();
         const amount = parseFloat(document.getElementById('income-amount').value);
         const category = document.getElementById('income-category').value;
@@ -53,25 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
         incomeForm.reset();
     });
 
-    expenseForm.addEventListener('submit', (event) => {
+    expenseForm.addEventListener('submit', (event) => {//button press triggers change on page(expenses)
         event.preventDefault();
         const amount = parseFloat(document.getElementById('expense-amount').value);
         const category = document.getElementById('expense-category').value;
         const date = document.getElementById('expense-date').value;
-
-        transactions.push({ type: 'expense', amount, category, date });
+		
+        transactions.push({ type: 'expense', amount, category, date });//EXPENSE MEANS MINUS NOT PLUS
         updateBalance();
         renderTransactions();
         expenseForm.reset();
     });
 
-    window.deleteTransaction = (index) => {
+    window.deleteTransaction = (index) => {//delete mistakes
         transactions.splice(index, 1);
         updateBalance();
         renderTransactions();
     };
 
-    window.editTransaction = (index) => {
+    window.editTransaction = (index) => {//edit boxes that are already made (jonah help please, boxes revert when pages refreshes)
         const transaction = transactions[index];
         const newAmount = prompt('Enter new amount:', transaction.amount.toFixed(2));
         const newCategory = prompt('Enter new category:', transaction.category);
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.generateSummary = () => {
+    window.generateSummary = () => {//get transactions from a certain amount of time in the past
         const period = summaryPeriod.value;
         const now = new Date();
         let startDate;
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
-    window.filterTransactions = () => {
+    window.filterTransactions = () => {//filter through searching (why wont console commands work in here???!?)
         const query = searchQuery.value.toLowerCase();
         const filteredTransactions = transactions.filter(transaction =>
             transaction.category.toLowerCase().includes(query) ||
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         incomeBody.innerHTML = '';
         expenseBody.innerHTML = '';
 
-        filteredTransactions.forEach((transaction, index) => {
+        filteredTransactions.forEach((transaction, index) => {//rendering to the webpage
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${transaction.amount.toFixed(2)}</td>
@@ -139,7 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
-
+/* 	//why wont this work??? 
+	//every single test page has worked
+	//commenting this all out for the presentation
+	
     function genPDF() {
         if (transactions.length === 0) {
             alert('No transactions to generate PDF');
@@ -149,15 +152,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        // Set the title
+        //set the title
         doc.setFontSize(24);
         doc.text("Exported Finances", 105, 20, { align: 'center' });
 
-        // Set the header background color
+        //set the header background color
         doc.setFillColor(144, 238, 144); // Light green color
         doc.rect(0, 25, 210, 10, 'F');
 
-        // Set the table header
+        //setup the table
         doc.setFontSize(12);
         doc.text("Type", 10, 35);
         doc.text("Amount", 60, 35);
@@ -166,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let yPosition = 40;
 
-        // Add transactions to the PDF
+        //add transactions to the PDF
         transactions.forEach(transaction => {
             const type = transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1);
             doc.text(type, 10, yPosition);
@@ -175,12 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text(transaction.date, 160, yPosition);
             yPosition += 10;
 
-            // Check if we need to add a new page
+            //check if we need to add a new page
             if (yPosition > 280) {
                 doc.addPage();
                 yPosition = 20;
 
-                // Re-add the header on the new page
+                //re-add the header on the new page, page wont load when this is added >:(
                 doc.setFontSize(24);
                 doc.text("Exported Finances", 105, 20, { align: 'center' });
                 doc.setFillColor(144, 238, 144);
@@ -195,5 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         doc.save('transactions.pdf');
-    }
+	
+    }*/
 });
